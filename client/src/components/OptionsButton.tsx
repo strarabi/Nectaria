@@ -11,7 +11,7 @@ function RecipeCard(): JSX.Element {
                     slider_options={["I'm on a very tight budget", "I'm looking for cost-effective options", "I prefer moderately priced items", "I can spend a bit more for quality", "I'm looking to splurge for a special occasion",]}
                     />
                     <Slider
-                    slider_question="How much active time do you want to spend on a meal?"
+                    slider_question="How much time do you want to spend on a meal?"
                     slider_options={['Minimal', 'A little', 'Moderate', 'A lot', 'A significant amount']}
                     />
                     <Slider

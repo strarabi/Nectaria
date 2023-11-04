@@ -1,27 +1,37 @@
 import RecipeCard, { Recipe } from './components/RecipeCard';
 import Navbar from './components/Navbar';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 function App() {
   const [recipeCards, setRecipeCards] = useState<JSX.Element[]>([]);
-  for (let i = 0; i < 8 ; ++i) {
-    const r: Recipe = {
-      recipe_name: "Rice and Beans", 
-      recipe_description: "Healthy, efficient, and budget-friendly recipe that is enjoyed by college students worldwide.",
-      recipe_body: "recipe body goes here",
-      cost_per_serving: "$1",
-      time_to_prepare: "5",
-      perishability_of_ingredients: "0",
-      num_dishes_required: "1",
-      difficulty: "0.1",
-      recipe_image: "http://placekitten.com/400/250"
-      }
 
-    recipeCards.push(<RecipeCard recipe={r} />)
-  }
+  useEffect(() => {
+    fetch("http://localhost:3000/data")
+      .then(response => response.json())
+      .then(data => {
+        const recipes: JSX.Element[] = data.map((item: any, index: number) => {
+          const recipe: Recipe = {
+            recipe_name: item['name'],
+            recipe_description: "", // todo
+            recipe_body: item['steps'],
+            recipe_image: item['image'],
+            cost_per_serving: "0",
+            time_to_prepare: "0",
+            perishability_of_ingredients: "0",
+            num_dishes_required: "0",
+            difficulty: "0",
+          };
+
+          return <RecipeCard key={index} recipe={recipe} />;
+        });
+
+        setRecipeCards(recipes);
+      });
+  }, []);
+
   return (
     <div className='app-container'>
-      <Navbar/>
+      <Navbar />
       <div className="gap-10 pt-10 flex flex-wrap justify-center">
         {recipeCards}
       </div>

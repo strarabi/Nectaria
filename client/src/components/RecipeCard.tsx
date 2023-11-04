@@ -16,6 +16,7 @@ export interface Props {
 }
 
 function RecipeCard(props: Props): JSX.Element {
+    const modalId = `recipe_info_${props.recipe.recipe_name.replace(/\s/g, '_')}`;
     return (
     <div className="card w-96 bg-base-100 shadow-xl">
         <figure><img src={props.recipe.recipe_image} alt="Recipe Picture" /></figure>
@@ -23,9 +24,9 @@ function RecipeCard(props: Props): JSX.Element {
             <h2 className="card-title">{props.recipe.recipe_name}</h2>
             <p>{props.recipe.recipe_description}</p>
             <div className="card-actions justify-end">
-            <button className="btn" onClick={()=>(document.getElementById('recipe_info') as HTMLDialogElement).showModal()}>Show Me</button>
+            <button className="btn" onClick={()=>(document.getElementById(modalId) as HTMLDialogElement).showModal()}>Show Me</button>
 
-            <dialog id="recipe_info" className="modal"> 
+            <dialog id={modalId} className="modal"> 
                 <div className="modal-box">
                     <h1 className="font-bold text-center text-xl">{props.recipe.recipe_name}</h1>
                     <h1 className="font-bold text-lg">Recipe Info</h1>
